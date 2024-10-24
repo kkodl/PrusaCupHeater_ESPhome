@@ -1,0 +1,75 @@
+esphome:
+  name: heater
+  friendly_name: Heater
+
+esp8266:
+  board: esp01_1m
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "use_your_own_one"
+
+ota:
+  - platform: esphome
+    password: "use_your_own_one"
+
+wifi:
+  ssid: 'wifi_ssid'
+  password: 'wifi_password'
+  fast_connect: true
+  use_address: 192.168.X.X
+  
+  manual_ip:
+    static_ip: 192.168.X.X
+    gateway: 192.168.X.X
+    subnet: 255.255.255.0
+    dns1: 192.168.X.X
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Heater Fallback Hotspot"
+    password: "use_your_own_one"
+
+captive_portal:
+
+#1-Wire bus connected to D7/GPIO13
+one_wire:
+  - platform: gpio
+    pin: GPIO13
+
+sensor:
+# WiFi signal sensor
+- platform: wifi_signal
+  name: "heater_wifi_signal"
+  update_interval: 300s
+
+- platform: dallas_temp
+  accuracy_decimals: 2
+  name: "heater_bed_temperature"
+  id: bed_temp
+  update_interval: 1s
+
+switch:
+#MOSFET power switch connected to D1/GPIO5
+  - platform: gpio
+    pin: GPIO5
+    name: "heater_on_switch"
+    restore_mode: RESTORE_DEFAULT_OFF
+    id: bed_heater
+    on_turn_on:
+      then:
+        switch.turn_on: heater_led
+    on_turn_off:
+      then:
+        switch.turn_off: heater_led
+
+#LED light connected to D5/GPIO14
+  - platform: gpio
+    pin: GPIO14
+    restore_mode: RESTORE_DEFAULT_OFF
+    inverted: NO
+    id: heater_led

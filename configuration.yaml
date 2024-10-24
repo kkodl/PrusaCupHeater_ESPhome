@@ -1,0 +1,14 @@
+climate:
+  - platform: generic_thermostat
+    name: Prusa Heat Bed
+    unique_id: prusa_heat_bed
+    heater: switch.heater_heater_on_switch
+    target_sensor: sensor.heater_heater_bed_temperature
+    min_temp: 25
+    max_temp: 85
+    cold_tolerance: 0.2
+    hot_tolerance: 0.2
+    precision: 0.1
+    target_temp_step: 1
+    min_cycle_duration:
+      seconds: 3

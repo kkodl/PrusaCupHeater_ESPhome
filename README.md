@@ -5,5 +5,5 @@ Další popis pak zde: https://chiptron.cz/news.php?readmore=1546
 Marty - KutilDomácí https://twitter.com/KutilDomaci, autor myšlenky a původního projektu používá k řízení Tasmotu.
 Pro "team ESPhome" najdete zde jednoduchý yaml soubor pro nastavení.
 
-Stručně postup:
-Do 
+## Rychlý start:
+-- Do 
